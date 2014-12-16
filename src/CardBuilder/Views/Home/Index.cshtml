@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CardBuilder.Models.Card>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@foreach (var card in Model)
+{
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <p>@card.ActionCost</p>
+                </div>
+                <div class="col-md-6 align-right">
+                    <p>@card.CardType</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center card-description">
+                <span class="vertical-align-middle">@card.Action</span>
+            </div>
+        </div>
+    </div>
+}
