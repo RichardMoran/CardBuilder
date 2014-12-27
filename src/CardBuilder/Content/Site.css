@@ -28,12 +28,11 @@ textarea {
     width: 25%;
     border: 1px solid black;
     margin: 1px;
-    min-height: 200px;
+    min-height: 150px;
 }
 
 .card-description {
-    min-height: 180px;
-    line-height: 180px;
+    min-height: 150px;
 }
 
 .align-right {

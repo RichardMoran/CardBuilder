@@ -3,8 +3,14 @@
     ViewBag.Title = "Home Page";
 }
 
+@{
+    var i = 0;
+}
+
 @foreach (var card in Model)
 {
+    i++;
+
     <div class="card">
         <div class="row">
             <div class="col-md-12">
@@ -18,8 +24,14 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center card-description">
-                <span class="vertical-align-middle">@card.Action</span>
+                @card.Action
             </div>
         </div>
     </div>
+
+    if (i == 3)
+    {
+        <div class="clearfix"></div>
+        i = 0;
+    }
 }
