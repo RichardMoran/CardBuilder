@@ -16,7 +16,8 @@ namespace CardBuilder.Models
     {
         Ability,
         Popularity,
-        Review,
-        Action
+        Star,
+        Action,
+        Negate
     }
 }
