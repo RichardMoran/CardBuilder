@@ -43,11 +43,10 @@
             const int PlusOneActionOneCard = 5 * Players;
             const int MinusFivePopPlusOneStar = 1 * Players;
             const int PlayCardTwice = 2 * Players;
-            const int MirrorCard = 2 * Players;
             const int ForceHandDiscard = 1 * Players;
             const int MinusOneStarOrDiscardHand = 2 * Players;
             const int MinusFivePopOrDiscardHand = 2 * Players;
-            const int PassCardsToAnotherPlayer = 1 * Players;
+            const int PassCardsToAnotherPlayer = 0 * Players;
             const int TakeCardsFromAnotherPlayer = 1 * Players;
             const int TakeUpToFiveFromDiscard = 0 * Players;
             const int ImmediatelyApplyTopThreeCards = 4 * Players;
@@ -55,14 +54,18 @@
             const int OpponentMinusThreePopYouPlusThreePop = 3 * Players;
             const int OpponentMinusOneStarYouPlusOneStar = 2 * Players;
             const int DiscardCardsDrawUpToFive = 1 * Players;
-            const int SwapHandsWithAnotherPlayer = 1 * Players;
+            const int SwapHandsWithAnotherPlayer = 0 * Players;
             const int EveryoneDrawOneCard = 2 * Players;
             const int EveryoneDiscardOneCard = 2 * Players;
             const int PlusFourCards = 4 * Players;
             const int EveryoneDiscardToZero = 1 * Players;
+            const int StealAbility = 1 * Players;
 
-            // Negates
-            const int Negates = 5 * Players;
+            // Interrupts
+            const int Negates = 2 * Players;
+            const int MirrorCard = 2 * Players;
+            const int EffectAppliesToAnotherPlayer = 2 * Players;
+            const int EffectAppliesToYouInstead = 2 * Players;
 
             // Abilities
             const int DrawTwoCardsEveryoneElseDrawsOne = 1 * Players;
@@ -73,9 +76,10 @@
             const int DrawFromDiscardInsteadOfDeck = 1 * Players;
             const int IncreaseHandSize = 1 * Players;
             const int DiscardCardsPlusOnePopPerCard = 1 * Players;
+            const int HaveTwoAbilities = 1 * Players;
 
             // Blockers
-            const int Blockers = 1 * Players;
+            const int Blockers = 0 * Players;
 
             // Card collection
             var cards = new List<Card>();
@@ -104,7 +108,6 @@
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "+1 Action +1 Card", CardType = CardType.Action }, PlusOneActionOneCard));
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "-5 Popularity +1 Star", CardType = CardType.Action }, MinusFivePopPlusOneStar));
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "Play any card in your hand twice (second time is free)", CardType = CardType.Action }, PlayCardTwice));
-            cards.AddRange(AddCards(new Card { ActionCost = 0, Action = "Play immediately after an opponent plays a card. The effects of that card immediately apply to you too.", CardType = CardType.Action }, MirrorCard));
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "You/opponent discard your/their hand.", CardType = CardType.Action }, ForceHandDiscard));
             cards.AddRange(AddCards(new Card { ActionCost = 2, Action = "Opponent -1 Star OR discard their hand.", CardType = CardType.Action }, MinusOneStarOrDiscardHand));
             cards.AddRange(AddCards(new Card { ActionCost = 2, Action = "Opponent -5 Popularity OR discard their hand.", CardType = CardType.Action }, MinusFivePopOrDiscardHand));
@@ -121,9 +124,13 @@
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "Everyone -1 card.", CardType = CardType.Action }, EveryoneDiscardOneCard));
             cards.AddRange(AddCards(new Card { ActionCost = 2, Action = "+4 cards", CardType = CardType.Action }, PlusFourCards));
             cards.AddRange(AddCards(new Card { ActionCost = 3, Action = "Everyone discard all cards.", CardType = CardType.Action }, EveryoneDiscardToZero));
+            cards.AddRange(AddCards(new Card { ActionCost = 3, Action = "Steal another player's ability and make it your ability.", CardType = CardType.Action }, StealAbility));
 
-            // Add Negates
-            cards.AddRange(AddCards(new Card { ActionCost = 0, Action = "Negate any card (Play at any time)", CardType = CardType.Negate }, Negates));
+            // Add Interrupts
+            cards.AddRange(AddCards(new Card { ActionCost = 0, Action = "Play immediately after an opponent plays a card. The card your opponent played has no effect.", CardType = CardType.Interrupt }, Negates));
+            cards.AddRange(AddCards(new Card { ActionCost = 0, Action = "Play immediately after an opponent plays a card. The effects of that card immediately apply to you too.", CardType = CardType.Interrupt }, MirrorCard));
+            cards.AddRange(AddCards(new Card { ActionCost = 0, Action = "Play immediately after an opponent plays a card that negatively affects you. The effects of that card immediately apply to another player instead of you.", CardType = CardType.Interrupt }, EffectAppliesToAnotherPlayer));
+            cards.AddRange(AddCards(new Card { ActionCost = 0, Action = "Play immediately after an opponent plays a card. The effects of that card immediately apply to you instead of whoever it would normally apply to.", CardType = CardType.Interrupt }, EffectAppliesToYouInstead));
 
             // Add Abilities
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "+2 cards, every other player immediately +1 card. (Keep this card in front of you. Use up to once per turn.)", CardType = CardType.Ability }, DrawTwoCardsEveryoneElseDrawsOne));
@@ -134,6 +141,7 @@
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "Draw the top card from the discard pile. (Keep this card in front of you. Use up to once per turn.)", CardType = CardType.Ability }, DrawFromDiscardInsteadOfDeck));
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "Hand size +1. (Keep this card in front of you.)", CardType = CardType.Ability }, IncreaseHandSize));
             cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "Discard any number of cards, +1 popularity per card discarded. (Keep this card in front of you. Use up to once per turn.)", CardType = CardType.Ability }, DiscardCardsPlusOnePopPerCard));
+            cards.AddRange(AddCards(new Card { ActionCost = 1, Action = "With this card in front of you, you may have two active abilities (other than this one) instead of one. (Keep this card in front of you. Use up to once per turn.)", CardType = CardType.Ability }, HaveTwoAbilities));
 
             // Add Blockers
             cards.AddRange(AddCards(new Card { ActionCost = 0, Action = "Blocker - Cannot be played. Cannot be discarded.", CardType = CardType.Blocker }, Blockers));

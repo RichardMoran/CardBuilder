@@ -18,7 +18,7 @@ namespace CardBuilder.Models
         Popularity,
         Star,
         Action,
-        Negate,
+        Interrupt,
         Blocker
     }
 }
